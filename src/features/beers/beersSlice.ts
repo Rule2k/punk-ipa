@@ -69,55 +69,16 @@ export const fetchListOfBeers = createAsyncThunk(
   }
 );
 
-// we don't really need to fetch a single beer since the /beers endpoint already send all the infos we need for a single beer,
-// but in a real app, the beerlist should not contain that many data and we should fetch the infos for each beers so it's a good pratice exercice
-export const fetchSingleBeer = createAsyncThunk(
-  'beers/fetchSingleBeer',
-  async (id: string) => {
-    const response = await fetchRequest<BeerDetailed[]>(`beers/${id}`);
-    return response;
-  }
-);
+const getNeededKeys = <T extends unknown>(payload: BeerDetailed): T => {
+  const { id, name, tagline, image_url, abv } = payload;
 
-const getNeededKeys = <T extends unknown>(
-  payload: BeerDetailed,
-  shouldReturnCompleteData: boolean
-): T => {
-  const {
+  return {
     id,
     name,
     tagline,
-    first_brewed,
-    description,
     image_url,
     abv,
-    ingredients,
-    food_pairing,
-    brewers_tips,
-    contributed_by,
-  } = payload;
-
-  return shouldReturnCompleteData
-    ? ({
-        id,
-        name,
-        tagline,
-        first_brewed,
-        description,
-        image_url,
-        abv,
-        ingredients,
-        food_pairing,
-        brewers_tips,
-        contributed_by,
-      } as T)
-    : ({
-        id,
-        name,
-        tagline,
-        image_url,
-        abv,
-      } as T);
+  } as T;
 };
 
 export const counterSlice = createSlice({
@@ -132,24 +93,11 @@ export const counterSlice = createSlice({
       .addCase(fetchListOfBeers.fulfilled, (state, action) => {
         state.listOfBeers.status = Status.Succeed;
         state.listOfBeers.data = action.payload.map((beer) =>
-          getNeededKeys<Beer>(beer, false)
+          getNeededKeys<Beer>(beer)
         );
       })
       .addCase(fetchListOfBeers.rejected, (state) => {
         state.listOfBeers.status = Status.Failed;
-      })
-      .addCase(fetchSingleBeer.pending, (state) => {
-        state.currentBeer.status = Status.Loading;
-      })
-      .addCase(fetchSingleBeer.fulfilled, (state, action) => {
-        state.currentBeer.status = Status.Succeed;
-        state.currentBeer.data = getNeededKeys<BeerDetailed>(
-          action.payload[0],
-          true
-        );
-      })
-      .addCase(fetchSingleBeer.rejected, (state) => {
-        state.currentBeer.status = Status.Failed;
       });
   },
 });
