@@ -1,0 +1,9 @@
+.SingleBeer {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid grey;
+  width: 5rem;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}

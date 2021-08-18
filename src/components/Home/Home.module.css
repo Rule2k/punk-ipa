@@ -1,0 +1,6 @@
+.Home {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50rem;
+  margin: auto;
+}

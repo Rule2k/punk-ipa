@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../../app/store';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
 import { fetchRequest } from '../../app/api';
 interface Amout {
   value: number;
@@ -15,16 +15,21 @@ export interface Beer {
   id: number;
   name: string;
   tagline: string;
-  first_brewed?: string;
-  description?: string;
   image_url: string;
   abv: number;
-  ingredients?: {
+}
+
+export interface BeerDetailed extends Beer {
+  first_brewed: string;
+  description: string;
+  image_url: string;
+  abv: number;
+  ingredients: {
     [name: string]: Ingredient;
   };
-  food_pairing?: string[];
-  brewers_tips?: string;
-  contributed_by?: string;
+  food_pairing: string[];
+  brewers_tips: string;
+  contributed_by: string;
 }
 
 export enum Status {
@@ -37,7 +42,7 @@ export enum Status {
 interface BeersState {
   currentBeer: {
     status: Status;
-    data?: Beer;
+    data?: BeerDetailed;
   };
   listOfBeers: {
     status: Status;
@@ -59,7 +64,7 @@ const initialState: BeersState = {
 export const fetchListOfBeers = createAsyncThunk(
   'beers/fetchListOfBeers',
   async () => {
-    const response = await fetchRequest<Beer[]>('beers');
+    const response = await fetchRequest<BeerDetailed[]>('beers');
     return response;
   }
 );
@@ -69,12 +74,15 @@ export const fetchListOfBeers = createAsyncThunk(
 export const fetchSingleBeer = createAsyncThunk(
   'beers/fetchSingleBeer',
   async (id: string) => {
-    const response = await fetchRequest<Beer>(`beers/${id}`);
+    const response = await fetchRequest<BeerDetailed[]>(`beers/${id}`);
     return response;
   }
 );
 
-const getNeededKeys = (payload: Beer, shouldReturnCompleteData: boolean) => {
+const getNeededKeys = <T extends unknown>(
+  payload: BeerDetailed,
+  shouldReturnCompleteData: boolean
+): T => {
   const {
     id,
     name,
@@ -90,7 +98,7 @@ const getNeededKeys = (payload: Beer, shouldReturnCompleteData: boolean) => {
   } = payload;
 
   return shouldReturnCompleteData
-    ? {
+    ? ({
         id,
         name,
         tagline,
@@ -102,14 +110,14 @@ const getNeededKeys = (payload: Beer, shouldReturnCompleteData: boolean) => {
         food_pairing,
         brewers_tips,
         contributed_by,
-      }
-    : {
+      } as T)
+    : ({
         id,
         name,
         tagline,
         image_url,
         abv,
-      };
+      } as T);
 };
 
 export const counterSlice = createSlice({
@@ -124,7 +132,7 @@ export const counterSlice = createSlice({
       .addCase(fetchListOfBeers.fulfilled, (state, action) => {
         state.listOfBeers.status = Status.Succeed;
         state.listOfBeers.data = action.payload.map((beer) =>
-          getNeededKeys(beer, true)
+          getNeededKeys<Beer>(beer, false)
         );
       })
       .addCase(fetchListOfBeers.rejected, (state) => {
@@ -135,7 +143,10 @@ export const counterSlice = createSlice({
       })
       .addCase(fetchSingleBeer.fulfilled, (state, action) => {
         state.currentBeer.status = Status.Succeed;
-        state.currentBeer.data = getNeededKeys(action.payload, false);
+        state.currentBeer.data = getNeededKeys<BeerDetailed>(
+          action.payload[0],
+          true
+        );
       })
       .addCase(fetchSingleBeer.rejected, (state) => {
         state.currentBeer.status = Status.Failed;
@@ -143,9 +154,7 @@ export const counterSlice = createSlice({
   },
 });
 
-export const selectCurrentBeer = (state: RootState) =>
-  state.beers.currentBeer.data;
-export const selectListOfBeers = (state: RootState) =>
-  state.beers.listOfBeers.data;
+export const selectCurrentBeer = (state: RootState) => state.beers.currentBeer;
+export const selectListOfBeers = (state: RootState) => state.beers.listOfBeers;
 
 export default counterSlice.reducer;
