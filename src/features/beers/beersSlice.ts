@@ -15,16 +15,16 @@ export interface Beer {
   id: number;
   name: string;
   tagline: string;
-  first_brewed: string;
-  description: string;
+  first_brewed?: string;
+  description?: string;
   image_url: string;
   abv: number;
-  ingredients: {
+  ingredients?: {
     [name: string]: Ingredient;
   };
-  food_pairing: string[];
-  brewers_tips: string;
-  contributed_by: string;
+  food_pairing?: string[];
+  brewers_tips?: string;
+  contributed_by?: string;
 }
 
 export enum Status {
@@ -74,6 +74,44 @@ export const fetchSingleBeer = createAsyncThunk(
   }
 );
 
+const getNeededKeys = (payload: Beer, shouldReturnCompleteData: boolean) => {
+  const {
+    id,
+    name,
+    tagline,
+    first_brewed,
+    description,
+    image_url,
+    abv,
+    ingredients,
+    food_pairing,
+    brewers_tips,
+    contributed_by,
+  } = payload;
+
+  return shouldReturnCompleteData
+    ? {
+        id,
+        name,
+        tagline,
+        first_brewed,
+        description,
+        image_url,
+        abv,
+        ingredients,
+        food_pairing,
+        brewers_tips,
+        contributed_by,
+      }
+    : {
+        id,
+        name,
+        tagline,
+        image_url,
+        abv,
+      };
+};
+
 export const counterSlice = createSlice({
   name: 'counter',
   initialState,
@@ -85,7 +123,9 @@ export const counterSlice = createSlice({
       })
       .addCase(fetchListOfBeers.fulfilled, (state, action) => {
         state.listOfBeers.status = Status.Succeed;
-        state.listOfBeers.data = action.payload;
+        state.listOfBeers.data = action.payload.map((beer) =>
+          getNeededKeys(beer, true)
+        );
       })
       .addCase(fetchListOfBeers.rejected, (state) => {
         state.listOfBeers.status = Status.Failed;
@@ -95,7 +135,7 @@ export const counterSlice = createSlice({
       })
       .addCase(fetchSingleBeer.fulfilled, (state, action) => {
         state.currentBeer.status = Status.Succeed;
-        state.currentBeer.data = action.payload;
+        state.currentBeer.data = getNeededKeys(action.payload, false);
       })
       .addCase(fetchSingleBeer.rejected, (state) => {
         state.currentBeer.status = Status.Failed;
