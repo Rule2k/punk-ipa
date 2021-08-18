@@ -2,7 +2,7 @@ const ROOT_ENDPOINT = 'https://api.punkapi.com/v2/';
 
 export const fetchRequest = async <T>(
   endpoint: string,
-  payload: any,
+  payload?: any,
   method: string = 'GET'
 ): Promise<T> => {
   let result: T;
