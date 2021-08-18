@@ -1,9 +1,31 @@
 .SingleBeer {
   display: flex;
   flex-direction: column;
-  border: 2px solid grey;
-  width: 5rem;
+  width: 15rem;
+  height: 20rem;
   justify-content: space-between;
   align-items: center;
   text-align: center;
+  border-radius: 0 0 2rem 2rem;
+  padding: 1rem;
+  color: darkgrey;
+  background-color: white;
+}
+
+.Image {
+  width: 15rem;
+  height: 10rem;
+  object-fit: contain;
+}
+
+.Title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #0096c3;
+}
+
+.Abv {
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: #0096c3;
 }

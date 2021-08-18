@@ -1,6 +1,12 @@
 .Home {
   display: flex;
   flex-wrap: wrap;
-  width: 50rem;
+  width: 90rem;
   margin: auto;
+  gap: 3rem;
+  justify-content: center;
+}
+
+.Home a {
+  text-decoration: none;
 }

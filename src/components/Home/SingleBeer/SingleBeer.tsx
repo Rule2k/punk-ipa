@@ -5,9 +5,10 @@ import styles from './SingleBeer.module.css';
 const SingleBeer = ({ abv, image_url, name, tagline }: Beer) => {
   return (
     <div className={styles.SingleBeer}>
-      <div>{name}</div>
-      <div>{tagline}</div>
-      <div></div>
+      <div className={styles.Title}>{name}</div>
+      <img className={styles.Image} src={image_url} />
+      <div className={styles.Tagline}>{tagline}</div>
+      <div className={styles.Abv}>{`${abv}%`}</div>
     </div>
   );
 };
