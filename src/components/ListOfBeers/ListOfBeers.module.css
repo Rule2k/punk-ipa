@@ -1,4 +1,4 @@
-.Home {
+.ListOfBeers {
   display: flex;
   flex-wrap: wrap;
   width: 90rem;
@@ -7,6 +7,6 @@
   justify-content: center;
 }
 
-.Home a {
+.ListOfBeers a {
   text-decoration: none;
 }

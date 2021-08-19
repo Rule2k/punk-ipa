@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <Link to="/">
       <div className={styles.Header}>
-        <img src={url} />
+        <img src={url} alt="Brewdog" />
       </div>
     </Link>
   );

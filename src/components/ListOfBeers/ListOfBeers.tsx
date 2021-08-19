@@ -1,6 +1,6 @@
 import React from 'react';
 import SingleBeer from './SingleBeer';
-import styles from './Home.module.css';
+import styles from './ListOfBeers.module.css';
 import { Link } from 'react-router-dom';
 import loadable from '../../hoc/Loadable/Loadable';
 import { Beer } from '../../features/beers/beersSlice';
@@ -9,10 +9,10 @@ interface Props {
   listOfBeers: Beer[];
 }
 
-const Home = ({ listOfBeers }: Props) => {
+const ListOfBeers = ({ listOfBeers }: Props) => {
   const emptyList = listOfBeers.length < 1;
   return (
-    <div className={styles.Home}>
+    <div className={styles.ListOfBeers}>
       {emptyList ? (
         <div>No data ! </div>
       ) : (
@@ -26,4 +26,4 @@ const Home = ({ listOfBeers }: Props) => {
   );
 };
 
-export default loadable<Props>(Home);
+export default loadable<Props>(ListOfBeers);

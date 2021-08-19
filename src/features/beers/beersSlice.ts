@@ -1,8 +1,4 @@
-import {
-  bindActionCreators,
-  createAsyncThunk,
-  createSlice,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { fetchRequest } from '../../app/api';
 interface Amout {
@@ -31,7 +27,7 @@ export interface BeerDetailed extends Beer {
   image_url: string;
   abv: number;
   ingredients: {
-    [name: string]: Ingredient;
+    [name: string]: Ingredient[] | string;
   };
   food_pairing: string[];
   brewers_tips: string;
@@ -99,9 +95,7 @@ export const beerSlice = createSlice({
       state.currentPage += 1;
     },
     previousPage: (state) => {
-      state.currentPage > 1
-        ? (state.currentPage -= 1)
-        : (state.currentPage = state.currentPage);
+      state.currentPage > 1 && (state.currentPage -= 1);
     },
   },
   extraReducers: (builder) => {

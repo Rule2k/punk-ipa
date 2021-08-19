@@ -20,7 +20,7 @@ const BeerDetailContainer = () => {
         setIsLoading(false);
       })
       .catch((e) => console.log(e));
-  }, []);
+  }, [id]);
 
   return <BeerDetail loading={isLoading} {...(currentBeer as BeerDetailed)} />;
 };

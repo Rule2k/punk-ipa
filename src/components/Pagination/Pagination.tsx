@@ -13,15 +13,17 @@ const Pagination = () => {
   const currentPage = useAppSelector(selectCurrentPage);
   useEffect(() => {
     dispatch(fetchListOfBeers(currentPage));
-  }, [currentPage]);
+  }, [currentPage, dispatch]);
   return (
-    <div className={styles.Pagination}>
-      {currentPage > 1 && (
-        <div onClick={() => dispatch(previousPage())}>Previous</div>
-      )}
-      <div>{`Page: ${currentPage}`}</div>
-      <div onClick={() => dispatch(nextPage())}>Next</div>
-    </div>
+    <>
+      <div className={styles.Pagination}>
+        {currentPage > 1 && (
+          <div onClick={() => dispatch(previousPage())}>Previous</div>
+        )}
+        <div onClick={() => dispatch(nextPage())}>Next</div>
+      </div>{' '}
+      <div className={styles.CurrentPage}>{`Page: ${currentPage}`}</div>
+    </>
   );
 };
 

@@ -1,0 +1,79 @@
+.BeerDetail {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  max-width: 35rem;
+}
+
+.Image {
+  width: 15rem;
+  height: 30rem;
+  object-fit: contain;
+  margin-bottom: 2rem;
+}
+
+.Name {
+  font-weight: bold;
+  font-size: 3rem;
+  color: white;
+  text-transform: uppercase;
+}
+
+.Tagline {
+  margin-bottom: 2rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid white;
+  color: white;
+}
+
+.Description {
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.FirstBrewed {
+  margin-bottom: 1rem;
+  color: black;
+  font-size: 0.9rem;
+}
+
+.FirstBrewed > span {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.BrewersTips {
+  margin-bottom: 1rem;
+  color: black;
+}
+
+.BrewersTips > span {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.Abv {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #0096c3;
+}
+
+.Texts {
+  padding: 2rem;
+  background-color: white;
+  border-radius: 0 0 2rem 2rem;
+  color: darkgrey;
+}
+
+.FoodPairing {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.FoodPairingText {
+  font-weight: bold;
+  color: black;
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}

@@ -1,6 +1,7 @@
 .Pagination {
   display: flex;
   flex-direction: row;
+  margin-bottom: 0.5rem;
 }
 
 .Pagination > div {
@@ -15,4 +16,11 @@
 
 .Pagination > div:not(:last-child) {
   margin-right: 1rem;
+}
+
+.CurrentPage {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
 }

@@ -23,6 +23,7 @@
   font-weight: bold;
   font-size: 1.2rem;
   color: #0096c3;
+  text-transform: uppercase;
 }
 
 .Abv {
@@ -35,6 +36,7 @@
   font-size: 0.8rem;
   padding: 1rem;
   max-height: 7rem;
+  font-style: italic;
 }
 
 .Top {

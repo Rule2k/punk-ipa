@@ -1,8 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import BeerDetailContainer from '../../containers/BeerDetailContainer';
-import HomeContainer from '../../containers/HomeContainer';
-import BeerDetail from '../BeerDetail';
+import HomeContainer from '../../containers/ListOfBeersContainer';
 import Layout from '../Layout';
 import NotFoundPage from '../NotFoundPage';
 
