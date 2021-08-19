@@ -12,7 +12,7 @@ const RouterComponent = () => {
       <Router>
         <Switch>
           <Route path="/" exact>
-            <Layout>
+            <Layout shouldDisplayPagination>
               <HomeContainer />
             </Layout>
           </Route>

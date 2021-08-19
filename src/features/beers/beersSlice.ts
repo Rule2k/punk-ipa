@@ -1,4 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  bindActionCreators,
+  createAsyncThunk,
+  createSlice,
+} from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { fetchRequest } from '../../app/api';
 interface Amout {
@@ -11,6 +15,7 @@ interface Ingredient {
   amount: Amout;
 }
 
+// Interface for the list of Beer
 export interface Beer {
   id: number;
   name: string;
@@ -18,7 +23,7 @@ export interface Beer {
   image_url: string;
   abv: number;
 }
-
+// Interface for a detailed Beer
 export interface BeerDetailed extends Beer {
   first_brewed: string;
   description: string;
@@ -48,6 +53,7 @@ interface BeersState {
     status: Status;
     data: Beer[];
   };
+  currentPage: number;
 }
 
 const initialState: BeersState = {
@@ -59,12 +65,14 @@ const initialState: BeersState = {
     status: Status.Idle,
     data: [],
   },
+  currentPage: 1,
 };
 
 export const fetchListOfBeers = createAsyncThunk(
   'beers/fetchListOfBeers',
-  async () => {
-    const response = await fetchRequest<BeerDetailed[]>('beers');
+  async (page: number) => {
+    const endpoint = `beers?page=${page}`;
+    const response = await fetchRequest<BeerDetailed[]>(endpoint);
     return response;
   }
 );
@@ -81,10 +89,19 @@ const getNeededKeys = <T extends unknown>(payload: BeerDetailed): T => {
   } as T;
 };
 
-export const counterSlice = createSlice({
+export const beerSlice = createSlice({
   name: 'counter',
   initialState,
-  reducers: {},
+  reducers: {
+    nextPage: (state) => {
+      state.currentPage += 1;
+    },
+    previousPage: (state) => {
+      state.currentPage > 1
+        ? (state.currentPage -= 1)
+        : (state.currentPage = state.currentPage);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchListOfBeers.pending, (state) => {
@@ -102,7 +119,10 @@ export const counterSlice = createSlice({
   },
 });
 
+export const { nextPage, previousPage } = beerSlice.actions;
+
 export const selectCurrentBeer = (state: RootState) => state.beers.currentBeer;
 export const selectListOfBeers = (state: RootState) => state.beers.listOfBeers;
+export const selectCurrentPage = (state: RootState) => state.beers.currentPage;
 
-export default counterSlice.reducer;
+export default beerSlice.reducer;

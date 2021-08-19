@@ -1,13 +1,28 @@
 import React, { ReactChild } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
+import Pagination from '../Pagination';
 import styles from './Layout.module.css';
 
-const Layout = ({ children }: { children: ReactChild }) => {
+interface Props {
+  children: ReactChild;
+  shouldDisplayPagination?: boolean;
+}
+
+const Layout = ({ children, shouldDisplayPagination }: Props) => {
   return (
     <div className={styles.Layout}>
       <Header />
       {children}
-      <footer>Footer</footer>
+      <div className={styles.Footer}>
+        {shouldDisplayPagination ? (
+          <Pagination />
+        ) : (
+          <Link to="/">
+            <div className={styles.GoToHome}>Return to home</div>
+          </Link>
+        )}
+      </div>
     </div>
   );
 };

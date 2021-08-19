@@ -6,7 +6,7 @@ import { fetchListOfBeers } from './features/beers/beersSlice';
 const App = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchListOfBeers());
+    dispatch(fetchListOfBeers(1));
   }, [dispatch]);
 
   return <Router />;

@@ -1,15 +1,9 @@
-.Layout {
+.Pagination {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
 }
 
-.Footer {
-  margin-top: 2rem;
-  margin-bottom: 5rem;
-}
-
-.GoToHome {
+.Pagination > div {
   cursor: pointer;
   font-weight: bold;
   font-size: 1.2rem;
@@ -19,6 +13,6 @@
   color: white;
 }
 
-.Layout a {
-  text-decoration: none;
+.Pagination > div:not(:last-child) {
+  margin-right: 1rem;
 }
