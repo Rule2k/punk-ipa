@@ -10,13 +10,18 @@ interface Props {
 }
 
 const Home = ({ listOfBeers }: Props) => {
+  const emptyList = listOfBeers.length < 1;
   return (
     <div className={styles.Home}>
-      {listOfBeers.map((beer) => (
-        <Link key={beer.name} to={`/beer/${beer.id}`}>
-          <SingleBeer {...beer} />
-        </Link>
-      ))}
+      {emptyList ? (
+        <div>No data ! </div>
+      ) : (
+        listOfBeers.map((beer) => (
+          <Link key={beer.name} to={`/beer/${beer.id}`}>
+            <SingleBeer {...beer} />
+          </Link>
+        ))
+      )}
     </div>
   );
 };

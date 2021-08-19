@@ -7,6 +7,7 @@ import styles from './Layout.module.css';
 interface Props {
   children: ReactChild;
   shouldDisplayPagination?: boolean;
+  fixedHeight?: boolean;
 }
 
 const Layout = ({ children, shouldDisplayPagination }: Props) => {

@@ -6,7 +6,13 @@ import { selectListOfBeers, Status } from '../features/beers/beersSlice';
 const HomeContainer = () => {
   const { data: listOfBeers, status } = useAppSelector(selectListOfBeers);
 
-  return <Home loading={status !== Status.Succeed} listOfBeers={listOfBeers} />;
+  return (
+    <Home
+      height={'172rem'}
+      loading={status !== Status.Succeed}
+      listOfBeers={listOfBeers}
+    />
+  );
 };
 
 export default HomeContainer;

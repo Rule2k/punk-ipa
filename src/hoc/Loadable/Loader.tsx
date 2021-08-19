@@ -1,7 +1,13 @@
 import React from 'react';
 
-const Loader = () => {
-  return <div>Loading !</div>;
+interface Props {
+  height?: string;
+}
+
+const Loader = ({ height }: Props) => {
+  return (
+    <div {...(height ? { style: { height: height } } : {})}>Loading !</div>
+  );
 };
 
 export default Loader;
