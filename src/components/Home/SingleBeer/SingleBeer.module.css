@@ -1,8 +1,8 @@
 .SingleBeer {
   display: flex;
   flex-direction: column;
-  width: 15rem;
-  height: 20rem;
+  width: 20rem;
+  height: 30rem;
   justify-content: space-between;
   align-items: center;
   text-align: center;
@@ -14,8 +14,9 @@
 
 .Image {
   width: 15rem;
-  height: 10rem;
+  height: 15rem;
   object-fit: contain;
+  margin-bottom: 1rem;
 }
 
 .Title {
@@ -28,4 +29,14 @@
   font-weight: bold;
   font-size: 0.8rem;
   color: #0096c3;
+}
+
+.Description {
+  font-size: 0.8rem;
+  padding: 1rem;
+  max-height: 7rem;
+}
+
+.Top {
+  margin-bottom: 1rem;
 }

@@ -22,6 +22,7 @@ export interface Beer {
   tagline: string;
   image_url: string;
   abv: number;
+  description: string;
 }
 // Interface for a detailed Beer
 export interface BeerDetailed extends Beer {
@@ -77,14 +78,15 @@ export const fetchListOfBeers = createAsyncThunk(
   }
 );
 
-const getNeededKeys = <T extends unknown>(payload: BeerDetailed): T => {
-  const { id, name, tagline, image_url, abv } = payload;
+const getNeededKeys = <T extends unknown>(payload: Beer): T => {
+  const { id, name, tagline, image_url, abv, description } = payload;
 
   return {
     id,
     name,
     tagline,
     image_url,
+    description,
     abv,
   } as T;
 };
